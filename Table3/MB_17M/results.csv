@@ -1,0 +1,6 @@
+#Method,Adaptive,AdaptiveType,T,IterScale,Repeat,Metric,Value,TreeName,Time
+MB,,,,1.76E7,0,ConsensusLogLL,-36996.12735336473,M1809.msf,61781094
+MB,,,,1.76E7,0,BestSampledLogLL,-Infinity,M1809.msf,61781094
+MB,,,,1.76E7,0,PartitionMetric,16.0,M1809.msf,61781094
+MB,,,,1.76E7,0,RobinsonFouldsMetric,0.5132849999999999,M1809.msf,61781094
+MB,,,,1.76E7,0,KuhnerFelsenstein,0.011374859974999998,M1809.msf,61781094

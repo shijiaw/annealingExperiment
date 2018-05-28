@@ -190,28 +190,32 @@ process createPlot {
   require("ggpubr")
   results <- read.df("$aggregated2", "csv", header="true", inferSchema="true")
   results <- collect(results)
-  head(results)
   #head(results[-which(results[,c("Metric")] == 'BestSampledLogLL'),])
   results <- data.frame(results[-which(results[,c("Metric")] == 'BestSampledLogLL'),])
   results[,2] <- paste(results[,1], results[,2])
-  results2 <- results
+  Method <-  rep("CSMC-Clock", nrow(results))
+  Method[results[,2]=="ANNEALING TRUE"] <- " ASMC"
+  Method[results[,2]=="ANNEALING FALSE"] <- " DASMC"
+  
+  results2 <- data.frame(results,Method)
+  head(results2)
   postscript("treeDistance.eps",width=10,height=4,horizontal = FALSE, onefile = FALSE, paper = "special")
 
-  p <- ggplot(results2[which(results2[,'Metric'] == 'ConsensusLogLL'),], aes(Adaptive, Value))
+  p <- ggplot(results2[which(results2[,'Metric'] == 'ConsensusLogLL'),], aes(Method, Value))
 
-  p2 <- ggplot(results2[which(results2[,'Metric'] == 'PartitionMetric'),], aes(Adaptive, Value))
+  p2 <- ggplot(results2[which(results2[,'Metric'] == 'PartitionMetric'),], aes(Method, Value))
 
-  p3 <- ggplot(results2[which(results2[,'Metric'] == 'RobinsonFouldsMetric'),], aes(Adaptive, Value))
+  p3 <- ggplot(results2[which(results2[,'Metric'] == 'RobinsonFouldsMetric'),], aes(Method, Value))
 
-  p4 <- ggplot(results2[which(results2[,'Metric'] == 'KuhnerFelsenstein'),], aes(Adaptive, Value))
+  p4 <- ggplot(results2[which(results2[,'Metric'] == 'KuhnerFelsenstein'),], aes(Method, Value))
   
-  p5 <- ggplot(results2, aes(Adaptive, Time))
+  p5 <- ggplot(results2, aes(Method, Time))
   
-  ggarrange(p + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab")+rremove("legend")+ geom_boxplot(aes(color = Adaptive))+ xlab('ConsensusLogLL')
-          ,p2 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Adaptive))+ xlab('PartitionMetric')
-          ,p3 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Adaptive))+ xlab('RobinsonFouldsMetric')
-          ,p4 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Adaptive))+ xlab('KuhnerFelsenstein')
-          ,p5 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Adaptive))+ xlab('Time')
+  ggarrange(p + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab")+rremove("legend")+ geom_boxplot(aes(color = Method))+ xlab('ConsensusLogLL')
+          ,p2 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Method))+ xlab('PartitionMetric')
+          ,p3 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Method))+ xlab('RobinsonFouldsMetric')
+          ,p4 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Method))+ xlab('KuhnerFelsenstein')
+          ,p5 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Method))+ xlab('Time')
           ,ncol = 5, nrow = 1, common.legend = TRUE)
 
   dev.off()  

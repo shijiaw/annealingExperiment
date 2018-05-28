@@ -66,8 +66,8 @@ process run {
 
   input:
     file code   
-     each mainRand from  (111,  333)
-     each rand from  (1001, 5001)
+     each mainRand from  (111, 222, 333)
+     each rand from  (1001,2001,3001,4001,5001,6001,7001,8001,9001,10001)
      each particle from  100
      each alphaSMCSampler from 0.99999
     echo true
@@ -85,7 +85,7 @@ process run {
      -nThousandIters 0.001 \
      -useDataGenerator true \
      -nTax   10  \
-     -len  1000  \
+     -len  500  \
      -generateDNAdata true \
      -sequenceType DNA \
      -useDataGen4GTRGammaI false       -nThreads 4 \

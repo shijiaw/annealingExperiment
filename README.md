@@ -1,4 +1,4 @@
-# AnnealingSimulation
+# annealingExperiment
 Cedar files and experiment results
 
 There are 10 folders in total. 

@@ -1,4 +1,5 @@
 # annealingExperiment
 Cedar files and experiment results
 
-The nextflow files with experiments setup, experiment results and the R code to generate figures are included.
+Each folder provides the nextflow files with experiment setups, the experiment results and the R code to generate figures
+ in our manuscripts.

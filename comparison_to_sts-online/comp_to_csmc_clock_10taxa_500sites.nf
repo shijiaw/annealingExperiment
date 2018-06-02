@@ -85,16 +85,16 @@ process run {
      -nThousandIters 0.001 \
      -useDataGenerator true \
      -nTax   10  \
-     -len   500\
+     -len  500  \
      -generateDNAdata true \
      -sequenceType DNA \
      -useDataGen4GTRGammaI false       -nThreads 4 \
      -treeRate 10 \
      -deltaProposalRate 10 \
-     -useNonclock true  \
+     -useNonclock false  \
      -useSlightNonclock false \
-     -iterScalings  $particle    1000000 \
-     -methods      ANNEALING CSMCNonClock    \
+     -iterScalings  $particle    200000 \
+     -methods      ANNEALING CSMC  \
      -resamplingStrategy  ESS  \
      -nAnnealing 50000  \
      -alphaSMCSampler $alphaSMCSampler \
@@ -106,7 +106,7 @@ process run {
      -fixtratioInMb true \
      -treePrior 'unconstrained:exp(10)'   \
      -fixNucleotideFreq true  \
-     -nReplica  1  \
+     -nReplica  3  \
      -repPerDataPt  1  \
      -mainRand $mainRand  \
      -gen.rand $rand \
@@ -170,7 +170,8 @@ process createPlot {
         
    output:
 
-    file 'treeDistance.eps'
+    file 'clockTreeDistanceASMCvsCSMC.eps'
+    file 'clockResults.csv'
         
   publishDir deliverableDir, mode: 'copy', overwrite: true
   
@@ -190,17 +191,18 @@ process createPlot {
   require("ggpubr")
   results <- read.df("$aggregated2", "csv", header="true", inferSchema="true")
   results <- collect(results)
-  head(results)
   #head(results[-which(results[,c("Metric")] == 'BestSampledLogLL'),])
   results <- data.frame(results[-which(results[,c("Metric")] == 'BestSampledLogLL'),])
   results[,2] <- paste(results[,1], results[,2])
-  Method <-  rep("CSMC-Nonclock", nrow(results))
+  Method <-  rep("CSMC-Clock", nrow(results))
   Method[results[,2]=="ANNEALING TRUE"] <- " ASMC"
   Method[results[,2]=="ANNEALING FALSE"] <- " DASMC"
   
   results2 <- data.frame(results,Method)
+  write.csv(results2, "clockResults.csv")
+  results2 <- results2[-which(Method==" DASMC"),]
   head(results2)
-  postscript("treeDistance.eps",width=10,height=4,horizontal = FALSE, onefile = FALSE, paper = "special")
+  postscript("clockTreeDistanceASMCvsCSMC.eps",width=10,height=4,horizontal = FALSE, onefile = FALSE, paper = "special")
 
   p <- ggplot(results2[which(results2[,'Metric'] == 'ConsensusLogLL'),], aes(Method, Value))
 
@@ -212,11 +214,11 @@ process createPlot {
   
   p5 <- ggplot(results2, aes(Method, Time))
   
-  ggarrange(p + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab")+rremove("legend")+ geom_boxplot(aes(color = Method))+ xlab('ConsensusLogLL')
-          ,p2 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Method))+ xlab('PartitionMetric')
-          ,p3 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Method))+ xlab('RobinsonFouldsMetric')
-          ,p4 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Method))+ xlab('KuhnerFelsenstein')
-          ,p5 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Method))+ xlab('Time')
+  ggarrange(p + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+ theme_bw()+rremove("x.text")+rremove("ylab")+rremove("legend")+ geom_boxplot(aes(color = Method))+ xlab('ConsensusLogLL')
+          ,p2 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+ theme_bw()+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Method))+ xlab('PartitionMetric')
+          ,p3 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+ theme_bw()+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Method))+ xlab('RobinsonFouldsMetric')
+          ,p4 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+ theme_bw()+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Method))+ xlab('KuhnerFelsenstein')
+          ,p5 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+ theme_bw()+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Method))+ xlab('Time')
           ,ncol = 5, nrow = 1, common.legend = TRUE)
 
   dev.off()  

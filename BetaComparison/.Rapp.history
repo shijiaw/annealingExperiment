@@ -1,0 +1,29 @@
+logZData999 <- data.frame(read.csv("SMC30_1000_999/logZout.csv"))#
+logZData999 <- logZData999[which(logZData999$Method == 'Adaptive'),]#
+logZData999$alpha = 0.999#
+logZData9999 <- data.frame(read.csv("SMC30_1000_9999/logZout.csv"))#
+logZData9999 <- logZData9999[which(logZData9999$Method == 'Adaptive'),]#
+logZData9999$alpha = 0.9999#
+logZData99995 <- data.frame(read.csv("SMC30_1000_99995/logZout.csv"))#
+logZData99995 <- logZData99995[which(logZData99995$Method == 'Adaptive'),]#
+logZData99995$alpha = 0.99995#
+logZData99999 <- data.frame(read.csv("SMC30_1000_99999/logZout.csv"))#
+logZData99999 <- logZData99999[which(logZData99999$Method == 'Adaptive'),]#
+logZData99999$alpha = 0.99999#
+logZData999995 <- data.frame(read.csv("SMC30_1000_999995/logZout.csv"))#
+logZData999995 <- logZData999995[which(logZData999995$Method == 'Adaptive'),]#
+logZData999995$alpha = 0.999995
+logZData999$logZ
+median(logZData999$logZ)
+quantile(logZData999$logZ, 0.9)
+quantile(logZData999$logZ, 0.1)
+median(logZData9999$logZ)
+quantile(logZData9999$logZ, 0.1)
+quantile(logZData9999$logZ, 0.9)
+median(logZData99999$logZ)
+quantile(logZData99999$logZ, 0.1)
+quantile(logZData99999$logZ, 0.9)
+median(logZData999995$logZ)
+quantile(logZData999995$logZ, 0.1)
+quantile(logZData999995$logZ, 0.9)
+9666*6000

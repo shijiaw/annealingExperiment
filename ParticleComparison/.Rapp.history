@@ -1,0 +1,41 @@
+library(ggplot2)#
+library(Rmisc) #
+library(Sleuth2)#
+library(ggpubr)#
+#
+tg <- ToothGrowth#
+tgc <- summarySE(tg, measurevar="len", groupvars=c("supp","dose"))#
+ggplot(tgc, aes(x=dose, y=len, colour=supp)) + #
+  geom_errorbar(aes(ymin=len-se, ymax=len+se), width=.1) +#
+  geom_line() +#
+  geom_point()#
+logZData100 <- data.frame(read.csv("SMC30_100_99999/logZout.csv"))#
+logZData100 <- logZData100[which(logZData100$Method == 'Adaptive'),]#
+logZData100$Particle = 100#
+logZData300 <- data.frame(read.csv("SMC30_300_99999/logZout.csv"))#
+logZData300 <- logZData300[which(logZData300$Method == 'Adaptive'),]#
+logZData300$Particle = 300#
+logZData1000 <- data.frame(read.csv("SMC30_1000_99999/logZout.csv"))#
+logZData1000 <- logZData1000[which(logZData1000$Method == 'Adaptive'),]#
+logZData1000$Particle = 1000#
+logZData3000 <- data.frame(read.csv("SMC30_3000_99999/logZout.csv"))#
+logZData3000 <- logZData3000[which(logZData3000$Method == 'Adaptive'),]#
+logZData3000$Particle = 3000#
+logZData = rbind(logZData100, logZData300, logZData1000, logZData3000)#
+logZData$Particle = as.factor(logZData$Particle)
+logZData
+logZData100
+logZData100$logZ
+median(logZData100$logZ)
+quantile(logZData100$logZ, 0.9)
+quantile(logZData100$logZ, 0.1)
+mean(logZData100$logZ)
+median(logZData300$logZ)
+quantile(logZData300$logZ, 0.9)
+quantile(logZData300$logZ, 0.1)
+median(logZData1000$logZ)
+quantile(logZData1000$logZ, 0.9)
+quantile(logZData1000$logZ, 0.1)
+median(logZData3000$logZ)
+quantile(logZData3000$logZ, 0.9)
+quantile(logZData3000$logZ, 0.1)

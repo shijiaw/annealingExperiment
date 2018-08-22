@@ -67,11 +67,11 @@ process run {
   input:
     file code   
      each mainRand from  (111)
-     each rand from  (1001)
-     each particle from  100
-     each alphaSMCSampler from 0.999
-     each length from (50,100)
-     each nTaxa from (10,15)
+     each rand from  (11,22,33,44,55)
+     each particle from  (100,1000)
+     each alphaSMCSampler from 0.9999
+     each length from (500,1000)
+     each nTaxa from (10)
     echo true
         
   output:
@@ -86,7 +86,7 @@ process run {
   java -cp code/lib/\\* -Xmx4g evolmodel.ModelComparisonExperiments   \
      -nThousandIters 0.001 \
      -useDataGenerator true \
-     -nTax $nTaxa  \
+     -nTaxa $nTaxa  \
      -len  $length  \
      -generateDNAdata true \
      -sequenceType DNA \
@@ -141,7 +141,7 @@ process aggregate {
     --experimentConfigs.saveStandardStreams false \
     --experimentConfigs.recordExecutionInfo false \
     --argumentFileName state/execs/0.exec/options.map \
-    --argumentsKeys    ModelComparisonExperiments.mainRand ModelComparisonExperiments.alphaSMCSampler gen.len gen.nTax gen.rand gen.treeRate ModelComparisonExperiments.iterScalings \
+    --argumentsKeys    ModelComparisonExperiments.mainRand ModelComparisonExperiments.alphaSMCSampler gen.len gen.nTaxa gen.rand gen.treeRate ModelComparisonExperiments.iterScalings \
     --dataPathInEachExecFolder state/execs/0.exec/results/logZout.csv \
     --outputFolderName aggregated
     ./code/bin/csv-aggregate \
@@ -149,7 +149,7 @@ process aggregate {
     --experimentConfigs.saveStandardStreams false \
     --experimentConfigs.recordExecutionInfo false \
     --argumentFileName state/execs/0.exec/options.map \
-    --argumentsKeys    ModelComparisonExperiments.mainRand ModelComparisonExperiments.alphaSMCSampler gen.len  gen.nTax  gen.rand gen.treeRate ModelComparisonExperiments.iterScalings \
+    --argumentsKeys    ModelComparisonExperiments.mainRand ModelComparisonExperiments.alphaSMCSampler gen.len  gen.nTaxa  gen.rand gen.treeRate ModelComparisonExperiments.iterScalings \
     --dataPathInEachExecFolder state/execs/0.exec/results/results.csv\
     --outputFolderName aggregated2
     ./code/bin/csv-aggregate \
@@ -157,7 +157,7 @@ process aggregate {
     --experimentConfigs.saveStandardStreams false \
     --experimentConfigs.recordExecutionInfo false \
     --argumentFileName state/execs/0.exec/options.map \
-    --argumentsKeys    ModelComparisonExperiments.mainRand ModelComparisonExperiments.alphaSMCSampler gen.len  gen.nTax  gen.rand gen.treeRate ModelComparisonExperiments.iterScalings \
+    --argumentsKeys    ModelComparisonExperiments.mainRand ModelComparisonExperiments.alphaSMCSampler gen.len  gen.nTaxa  gen.rand gen.treeRate ModelComparisonExperiments.iterScalings \
     --dataPathInEachExecFolder state/execs/0.exec/results/gtrGammaParameters.csv\
     --outputFolderName aggregated3
   """

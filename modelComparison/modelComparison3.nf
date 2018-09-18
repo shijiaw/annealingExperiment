@@ -67,11 +67,11 @@ process run {
   input:
     file code   
      each mainRand from  (7181)
-     each rand from  201..300
+     each rand from  201..202
      each particle from  (100)
-     each alphaSMCSampler from 0.99995
-     each length from (1000)
-     each nTaxa from (10)
+     each alphaSMCSampler from 0.999
+     each length from (100)
+     each nTaxa from (6)
     echo true
         
   output:

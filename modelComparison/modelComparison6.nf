@@ -66,12 +66,12 @@ process run {
 
   input:
     file code   
-     each mainRand from  (7181)
-     each rand from  201..300
-     each particle from  (100)
-     each alphaSMCSampler from 0.99995
-     each length from (1000)
-     each nTaxa from (10)
+     each mainRand from  (11)
+     each rand from  301..312
+     each particle from  (200)
+     each alphaSMCSampler from 0.9999
+     each length from (2000)
+     each nTaxa from (20)
     echo true
         
   output:
@@ -94,7 +94,7 @@ process run {
      -useDataGen4GTRGammaI true       -nThreads 1 \
      -treeRate 10 \
      -deltaProposalRate 10 \
-     -useNonclock false  \
+     -useNonclock true  \
      -useSlightNonclock false \
      -iterScalings  $particle   100000 $particle   100000 $particle   100000\
      -methods       ANNEALINGEvolK2P SSEvolK2P ANNEALINGJC SSJC  ANNEALINGEvolGTR SSEvolGTR \

@@ -1,0 +1,4 @@
+scriptName: modelComparison4.nf
+start: Sat Sep 01 18:29:39 PDT 2018
+runName: serene_wright
+nextflow.version: 0.24.4

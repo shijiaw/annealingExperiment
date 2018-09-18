@@ -49,7 +49,7 @@ process buildCode {
   input:
     val gitRepoName from 'phylosmcsampler'
     val gitUser from 'liangliangwangsfu'
-    val codeRevision from '1630afe97e37e626c6f07e264918c02b2190ec69'
+    val codeRevision from 'cbd2d0c21c5b55e0ef9b39723d4f42a7c620a5ef'
     val snapshotPath from '/Users/liangliangwang/eclipse-workspace/phylosmcsampler'
   
   output:
@@ -66,11 +66,11 @@ process run {
 
   input:
     file code   
-     each mainRand from  (7181)
-     each rand from  201..300
+     each mainRand from  (1314)
+     each rand from  (11,22,33,44,55,66,77,88,99,110,121)
      each particle from  (100)
-     each alphaSMCSampler from 0.99995
-     each length from (1000)
+     each alphaSMCSampler from 0.999
+     each length from (100)
      each nTaxa from (10)
     echo true
         
@@ -91,13 +91,17 @@ process run {
      -generateDNAdata true \
      -sequenceType DNA \
      -useSeqGen false \
+     -fixNucleotideFreq false \
+     -set2nst false \
+     -setToK2P false \
+     -setGTRGammaI true \
      -useDataGen4GTRGammaI true       -nThreads 1 \
      -treeRate 10 \
      -deltaProposalRate 10 \
      -useNonclock false  \
      -useSlightNonclock false \
      -iterScalings  $particle   100000 $particle   100000 $particle   100000\
-     -methods       ANNEALINGEvolK2P SSEvolK2P ANNEALINGJC SSJC  ANNEALINGEvolGTR SSEvolGTR \
+     -methods      ANNEALINGJC SSJC  ANNEALINGEvolK2P SSEvolK2P ANNEALINGEvolGTR SSEvolGTR \
      -resamplingStrategy  ESS  \
      -nAnnealing 50000  \
      -alphaSMCSampler $alphaSMCSampler \
@@ -176,7 +180,6 @@ process createPlot {
     file 'aggregatedLogZout.csv'
     file 'aggregatedGTRGammaParameters.csv'
     file 'aggregatedResults.csv'
-    file 'modelSelectionSummary.csv'
                 
   publishDir deliverableDir, mode: 'copy', overwrite: true
   
@@ -210,26 +213,6 @@ process createPlot {
   head(results)
   write.csv(results, "aggregatedResults.csv")
   
-  logZoutRe <- read.csv("aggregatedLogZout.csv")
-  head(logZoutRe)
-  ncol(logZoutRe)
-  annealMethods <- c("ANNEALINGJC","ANNEALINGEvolK2P","ANNEALINGEvolGTR")
-  ssMethods <- c("SSJC","SSEvolK2P","SSEvolGTR")
-  uniqueTrees <- unique(logZoutRe[,"X.treeName"])
-  modelSelectionSummary <- matrix(0,length(uniqueTrees),3)
-  colnames(modelSelectionSummary) <- c("treeName","modelByASMC","modelBySS")
-  k <- 1
-  for(i in uniqueTrees)
-  {
-  subData <- logZoutRe[logZoutRe[,"X.treeName"]==i,]
-  if(nrow(subData)==6){  
-  logZAnnealledMethod <- subData[,"logZ"][which(subData[,"Method"] %in% annealMethods)]
-  logZSSMethod <- subData[,"logZ"][which(subData[,"Method"] %in% ssMethods)]
-  modelSelectionSummary[k,] <- c(i, annealMethods[logZAnnealledMethod==max(logZAnnealledMethod)], ssMethods[logZSSMethod==max(logZSSMethod)])
-  k <- k+1
-  }
-  }
-  write.csv(modelSelectionSummary, "modelSelectionSummary.csv")
   getwd()
   """
 }

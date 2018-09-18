@@ -1,0 +1,4 @@
+scriptName: modelComparison.nf
+start: Sun Aug 26 17:33:46 PDT 2018
+runName: cocky_bose
+nextflow.version: 0.24.4

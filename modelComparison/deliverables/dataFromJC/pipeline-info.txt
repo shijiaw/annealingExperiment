@@ -1,0 +1,4 @@
+scriptName: dataFromJC.nf
+start: Wed Sep 26 23:30:24 PDT 2018
+runName: stoic_lichterman
+nextflow.version: 0.24.4

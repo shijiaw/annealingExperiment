@@ -1,0 +1,4 @@
+scriptName: dataFromK2P.nf
+start: Wed Sep 26 16:54:30 PDT 2018
+runName: suspicious_goldberg
+nextflow.version: 0.24.4

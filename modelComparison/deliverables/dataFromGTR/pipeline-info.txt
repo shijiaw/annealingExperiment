@@ -1,0 +1,4 @@
+scriptName: dataFromGTR2.nf
+start: Wed Sep 26 10:43:33 PDT 2018
+runName: happy_gates
+nextflow.version: 0.24.4

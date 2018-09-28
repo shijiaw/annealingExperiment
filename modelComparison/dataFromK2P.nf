@@ -91,7 +91,8 @@ process run {
      -generateDNAdata true \
      -sequenceType DNA \
      -useSeqGen false \
-     -useDataGen4GTRGammaI true       -nThreads 1 \
+     -useDataGen4GTRGammaI false       -nThreads 1 \
+     -useJC false \
      -treeRate 10 \
      -deltaProposalRate 10 \
      -useNonclock true  \

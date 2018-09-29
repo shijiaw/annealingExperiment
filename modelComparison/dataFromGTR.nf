@@ -251,6 +251,7 @@ process createPlot {
    Method2[which(logZoutReGTR[,"Method"]=="SSEvolGTR")] = "SS"
   logZoutReGTR = cbind(logZoutReGTR[, -which(names(logZoutReGTR)=="Method")],Method=Method2)
     
+  ylimt <- range(logZoutRe[,"logZ"])      
   p0 <- ggplot(logZoutReJC, aes(Method, logZ))
   p1 <- ggplot(logZoutReK2P, aes(Method, logZ))
   p2 <- ggplot(logZoutReGTR, aes(Method, logZ))
@@ -259,9 +260,9 @@ process createPlot {
   postscript(gname,width=10,height=3,horizontal = FALSE, onefile = FALSE, paper = "special")
   par(mfrow=c(1,1),oma=c(0.2,1.5,0.2,1.5),mar=c(3,2,0.2,2),cex.axis=1,las=1,mgp=c(1,0.5,0),adj=0.5)
 
-  ggarrange(p0 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1) + geom_boxplot(aes(color = Method))+ theme_bw()+rremove("x.text")+rremove("ylab")+ xlab('JC'),
-       p1 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1) + geom_boxplot(aes(color = Method))+ theme_bw()+rremove("x.text")+rremove("ylab")+ xlab('K2P'),
-       p2 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1) + geom_boxplot(aes(color = Method))+ theme_bw()+rremove("x.text")+rremove("ylab")+ xlab('GTR'),
+  ggarrange(p0 + ylim(ylimt) + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1) + geom_boxplot(aes(color = Method))+ theme_bw()+rremove("x.text")+rremove("ylab")+ xlab('JC'),
+       p1 + ylim(ylimt) + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1) + geom_boxplot(aes(color = Method))+ theme_bw()+rremove("x.text")+rremove("ylab")+ xlab('K2P'),
+       p2 + ylim(ylimt) + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1) + geom_boxplot(aes(color = Method))+ theme_bw()+rremove("x.text")+rremove("ylab")+ xlab('GTR'),
        ncol = 3, nrow = 1, common.legend = TRUE)
 
   dev.off()

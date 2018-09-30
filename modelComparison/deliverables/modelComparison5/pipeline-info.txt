@@ -1,4 +1,0 @@
-scriptName: modelComparison5.nf
-start: Sun Sep 02 22:57:27 PDT 2018
-runName: thirsty_pasteur
-nextflow.version: 0.24.4

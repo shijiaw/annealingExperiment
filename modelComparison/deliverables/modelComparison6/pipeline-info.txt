@@ -1,4 +1,0 @@
-scriptName: modelComparison6.nf
-start: Fri Sep 07 13:35:26 PDT 2018
-runName: tiny_engelbart
-nextflow.version: 0.24.4

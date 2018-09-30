@@ -1,4 +1,0 @@
-scriptName: modelComparison1.nf
-start: Wed Aug 22 18:19:55 PDT 2018
-runName: jolly_dijkstra
-nextflow.version: 0.24.4

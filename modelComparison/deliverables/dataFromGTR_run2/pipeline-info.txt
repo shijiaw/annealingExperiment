@@ -1,0 +1,4 @@
+scriptName: dataFromGTR_run2.nf
+start: Tue Oct 09 17:24:33 PDT 2018
+runName: loving_hamilton
+nextflow.version: 0.24.4

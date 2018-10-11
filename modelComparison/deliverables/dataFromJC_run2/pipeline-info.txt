@@ -1,0 +1,4 @@
+scriptName: dataFromJC_run2.nf
+start: Tue Oct 09 17:26:22 PDT 2018
+runName: elated_lovelace
+nextflow.version: 0.24.4

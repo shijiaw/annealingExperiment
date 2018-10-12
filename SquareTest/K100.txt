@@ -1,0 +1,5 @@
+-useDataGenerator true   -nThousandIters 0.001  -nTax 15  -len  300 -sequenceType DNA -generateDNAdata true -useDataGen4GTRGammaI false -nThreads 3  -treeRate 10 -deltaProposalRate 10 -useNonclock true -useSlightNonclock false -sdScale 0.3  
+-iterScalings  100 -methods   ANNEALING   -resamplingStrategy ESS  -nAnnealing 10000  -alphaSMCSampler 0.99999
+-essRatioThreshold 0.5 -adaptiveTempDiff false -adaptiveType 0     -csmc_trans2tranv 2.0   -mb_trans2tranv 2.0 -setJC true  -fixtratioInMb true  -treePrior unconstrained:exp(10)     -fixNucleotideFreq true   -nReplica  1   -repPerDataPt   10   -mainRand 130  -gen.rand 100 -useCESS true  -useNNI true  -useLIS  true  -usenewSS true  -ntempSS  50  -mcmcfac  1 -usenewDSMC  true
+-runDSMCusingadaptiveTemp false
+-mrBayesPath  /Users/shijiaw/Dropbox/phyloSoftware/mrbayes-3.2.6/src//mb  -neighborPath  /Users/shijiaw/Dropbox/phyloSoftware/phylip-3.69/exe//neighbor

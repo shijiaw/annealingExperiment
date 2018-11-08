@@ -1,0 +1,4 @@
+scriptName: dataFromJC_multipleDataSet.nf
+start: Tue Oct 23 14:48:58 PDT 2018
+runName: tender_shaw
+nextflow.version: 0.24.4

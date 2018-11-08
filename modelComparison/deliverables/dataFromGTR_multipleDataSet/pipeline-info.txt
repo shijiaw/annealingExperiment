@@ -1,0 +1,4 @@
+scriptName: dataFromGTR_multipleDataSet.nf
+start: Wed Oct 24 21:10:22 PDT 2018
+runName: tiny_booth
+nextflow.version: 0.24.4

@@ -1,0 +1,4 @@
+scriptName: dataFromK2P_multipleDataSet.nf
+start: Sat Oct 27 14:12:19 PDT 2018
+runName: gloomy_golick
+nextflow.version: 0.24.4
